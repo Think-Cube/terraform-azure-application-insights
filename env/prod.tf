@@ -10,7 +10,7 @@ resource_owner = ""
 rg_location = ""
 rg_name = ""
 ###########################
-# ACR vars
+# Application Insights vars
 ###########################
 application_insights_name = ""
 application_insights_type = ""
