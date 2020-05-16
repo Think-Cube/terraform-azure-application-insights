@@ -1,16 +1,16 @@
 ###########################
 # Common vars
 ###########################
-envirioment = ""
-tag_envirioment = ""
-resource_owner = ""
+envirioment = "dev"
+tag_envirioment = "dev"
+resource_owner = "Test organization"
 ###########################
 # Resource groups vars
 ###########################
-rg_location = ""
-rg_name = ""
+rg_location = "West Europe"
+rg_name = "weu-dev-rg"
 ###########################
 # Application Insights vars
 ###########################
-application_insights_name = ""
-application_insights_type = ""
+application_insights_name = "TestAppinsights1"
+application_insights_type = "web"

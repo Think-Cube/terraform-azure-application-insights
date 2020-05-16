@@ -30,10 +30,10 @@
 ### Terraform apply
 
 ```
-terraform plan -var-file="env/prod.tfvars"
+terraform plan -var-file="env/dev.tfvars"
 ```
 
 ### Terraform plan
 ```
-terraform apply -var-file="env/prod.tfvars"
+terraform apply -var-file="env/dev.tfvars"
 ```

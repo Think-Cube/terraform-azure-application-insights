@@ -3,7 +3,7 @@ output "id" {
   value = "${azurerm_application_insights.main.id}"
 }
 output "instrumentation_key" {
-    description = "App ID associated with this Application Insights component."
+  description = "App ID associated with this Application Insights component."
   value = "${azurerm_application_insights.main.instrumentation_key}"
 }
 
