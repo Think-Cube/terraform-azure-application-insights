@@ -1,9 +1,9 @@
 terraform {
-    backend "azurem" {
-        resource_group_name = "weu-common-rg"
-        storage_account_name = "tfstated"
-
-        container_name = "tfstate"
-        key = "${var.envirioment}-application-insights-terraform.tfstate"
+  required_providers {
+    azurerm = {
+      source = "hashicorp/azurerm"
+      version = "3.3.0"
     }
+  }
+required_version = ">= 0.15"
 }
