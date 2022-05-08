@@ -51,7 +51,7 @@ variable "log_analytics_workspace_sku" {
 }
 variable "log_analytics_workspace_retention_in_days" {
   description = "The workspace data retention in days. Possible values are either 7 (Free Tier only) or range between 30 and 730."
-  type = "string"
+  type = "number"
   default = "30"
 }
 
