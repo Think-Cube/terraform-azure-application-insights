@@ -52,9 +52,13 @@ No modules.
 ## How to use
 
 ```
+provider "azurerm" {
+features {}
+}
+
 module "app-insights" {
   source  = "spy86/app-insights/azure"
-  version = "1.0.2"
+  version = "1.0.3"
   application_insights_name = "dd5ce8a0"
   log_analytics_workspace_name = "bf308ab897c3"
   resource_group_name = "weu-test-rg"
