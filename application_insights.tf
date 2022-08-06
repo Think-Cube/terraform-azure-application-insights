@@ -7,6 +7,5 @@ resource "azurerm_application_insights" "main" {
 
     tags = "${var.default_tags}"
 
-depends_on = [ "azurerm_log_analytics_workspace.main" ] 
+depends_on = [ azurerm_log_analytics_workspace.main ] 
 }
-
