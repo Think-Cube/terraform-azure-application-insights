@@ -26,3 +26,4 @@ module "app-insights" {
       ManagedByTerraform = "True"
 }
 }
+```
