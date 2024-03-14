@@ -44,7 +44,9 @@ No modules.
 
 | Name | Description |
 |------|-------------|
-| <a name="output_app_id"></a> [app\_id](#output\_app\_id) | Instrumentation Key for this Application Insights component. |
-| <a name="output_id"></a> [id](#output\_id) | ID of the Application Insights component. |
-| <a name="output_instrumentation_key"></a> [instrumentation\_key](#output\_instrumentation\_key) | App ID associated with this Application Insights component. |
+| <a name="output_application_insights_id"></a> [application\_insights\_id](#output\_application\_insights\_id) | The ID of the created Application Insights instance. |
+| <a name="output_log_analytics_workspace_customer_id"></a> [log\_analytics\_workspace\_customer\_id](#output\_log\_analytics\_workspace\_customer\_id) | Customer ID of the created Log Analytics Workspace. |
+| <a name="output_log_analytics_workspace_id"></a> [log\_analytics\_workspace\_id](#output\_log\_analytics\_workspace\_id) | The ID of the created Log Analytics Workspace. |
+| <a name="output_log_analytics_workspace_primary_shared_key"></a> [log\_analytics\_workspace\_primary\_shared\_key](#output\_log\_analytics\_workspace\_primary\_shared\_key) | Primary shared key of the created Log Analytics Workspace. |
+| <a name="output_log_analytics_workspace_secondary_shared_key"></a> [log\_analytics\_workspace\_secondary\_shared\_key](#output\_log\_analytics\_workspace\_secondary\_shared\_key) | Secondary shared key of the created Log Analytics Workspace. |
 <!-- END_TF_DOCS -->
