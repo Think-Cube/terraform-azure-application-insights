@@ -11,8 +11,8 @@ provider "azurerm" {
 features {}
 }
 
-module "app-insights" {
-  source  = "Think-Cube/app-insights/azure"
+module "application_insight" {
+  source  = "Think-Cube/application-insight/azure"
   version = "1.0.0"
   application_insights_name = "dd5ce8a0"
   log_analytics_workspace_name = "bf308ab897c3"
