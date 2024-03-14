@@ -2,9 +2,9 @@ provider "azurerm" {
 features {}
 }
 
-module "app-insights" {
-  source  = "spy86/app-insights/azure"
-  version = "1.0.4"
+module "application_insight" {
+  source  = "Think-Cube/application-insight/azure"
+  version = "1.0.0"
   application_insights_name = "dd5ce8a0"
   log_analytics_workspace_name = "bf308ab897c3"
   resource_group_name = "weu-test-rg"
@@ -16,10 +16,10 @@ module "app-insights" {
   region = "weu"
 
   default_tags = {
-      Administrator = "Someone"
-      Department = "IT"
-      CostCentre = "ABC123"
-      ContactPerson = "Someone@example.com"
+      Administrator     = "John Doe"
+      Department        = "IT"
+      CostCentre        = "CC123"
+      ContactPerson     = "Jane Smith"
       ManagedByTerraform = "True"
 }
 }
