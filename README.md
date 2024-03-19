@@ -44,9 +44,12 @@ No modules.
 
 | Name | Description |
 |------|-------------|
-| <a name="output_application_insights_id"></a> [application\_insights\_id](#output\_application\_insights\_id) | The ID of the created Application Insights instance. |
-| <a name="output_log_analytics_workspace_customer_id"></a> [log\_analytics\_workspace\_customer\_id](#output\_log\_analytics\_workspace\_customer\_id) | Customer ID of the created Log Analytics Workspace. |
-| <a name="output_log_analytics_workspace_id"></a> [log\_analytics\_workspace\_id](#output\_log\_analytics\_workspace\_id) | The ID of the created Log Analytics Workspace. |
-| <a name="output_log_analytics_workspace_primary_shared_key"></a> [log\_analytics\_workspace\_primary\_shared\_key](#output\_log\_analytics\_workspace\_primary\_shared\_key) | Primary shared key of the created Log Analytics Workspace. |
-| <a name="output_log_analytics_workspace_secondary_shared_key"></a> [log\_analytics\_workspace\_secondary\_shared\_key](#output\_log\_analytics\_workspace\_secondary\_shared\_key) | Secondary shared key of the created Log Analytics Workspace. |
+| <a name="output_azurerm_application_insights_app_id"></a> [azurerm\_application\_insights\_app\_id](#output\_azurerm\_application\_insights\_app\_id) | The App ID associated with this Application Insights component. |
+| <a name="output_azurerm_application_insights_connection_string"></a> [azurerm\_application\_insights\_connection\_string](#output\_azurerm\_application\_insights\_connection\_string) | The Connection String for this Application Insights component. |
+| <a name="output_azurerm_application_insights_id"></a> [azurerm\_application\_insights\_id](#output\_azurerm\_application\_insights\_id) | The ID of the Application Insights component. |
+| <a name="output_azurerm_application_insights_instrumentation_key"></a> [azurerm\_application\_insights\_instrumentation\_key](#output\_azurerm\_application\_insights\_instrumentation\_key) | The Instrumentation Key for this Application Insights component. |
+| <a name="output_azurerm_log_analytics_workspace_id"></a> [azurerm\_log\_analytics\_workspace\_id](#output\_azurerm\_log\_analytics\_workspace\_id) | The Log Analytics Workspace ID. |
+| <a name="output_azurerm_log_analytics_workspace_primary_shared_key"></a> [azurerm\_log\_analytics\_workspace\_primary\_shared\_key](#output\_azurerm\_log\_analytics\_workspace\_primary\_shared\_key) | The Primary shared key for the Log Analytics Workspace. |
+| <a name="output_azurerm_log_analytics_workspace_secondary_shared_key"></a> [azurerm\_log\_analytics\_workspace\_secondary\_shared\_key](#output\_azurerm\_log\_analytics\_workspace\_secondary\_shared\_key) | The Secondary shared key for the Log Analytics Workspace. |
+| <a name="output_azurerm_log_analytics_workspace_workspace_id"></a> [azurerm\_log\_analytics\_workspace\_workspace\_id](#output\_azurerm\_log\_analytics\_workspace\_workspace\_id) | The Workspace (or Customer) ID for the Log Analytics Workspace. |
 <!-- END_TF_DOCS -->
