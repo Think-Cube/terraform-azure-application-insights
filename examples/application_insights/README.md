@@ -16,7 +16,7 @@ module "application_insight" {
   version = "1.0.0"
   application_insights_name = "dd5ce8a0"
   log_analytics_workspace_name = "bf308ab897c3"
-  resource_group_name = "weu-test-rg"
+  resource_group_name = "dev-test-weyu-rg"
   resource_group_location = "West Europe"
   application_insights_type = "web"
   environment = "dev"

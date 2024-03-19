@@ -44,7 +44,7 @@ variable "application_insights_type" {
   default     = "web"
 
   validation {
-    condition     = can(regex("^(ios|java|MobileCenter|nodejs|other)$", var.application_insights_type))
+    condition     = can(regex("^(ios|java|MobileCenter|Node.JS|other|phone|store|web)$", var.application_insights_type))
     error_message = "Invalid value for application_insights_type. Valid values are ios, java, MobileCenter, nodejs, or other."
   }
 }
@@ -59,7 +59,7 @@ variable "log_analytics_workspace_sku" {
 
   validation {
     condition     = can(regex("^(Free|PerNode|Premium|Standard|Standalone|Unlimited|CapacityReservation|PerGB2018)$", var.log_analytics_workspace_sku))
-    error_message = "Invalid value for log_analytics_workspace_sku. Valid values are Free, PerNode, Premium, Standard, Standalone, Unlimited, CapacityReservation, or PerGB2018."
+    error_message = "Invalid value for log_analytics_workspace_retention_in_days. Valid values are Free, PerNode, Premium, Standard, Standalone, Unlimited, CapacityReservation, PerGB2018."
   }
 }
 
@@ -67,4 +67,9 @@ variable "log_analytics_workspace_retention_in_days" {
   description = "The workspace data retention in days. Possible values are either 7 (Free Tier only) or range between 30 and 730."
   type        = number
   default     = "30"
+
+  validation {
+    condition     = can(regex("^(30|60|90|120|180|270|365|550|730)$", var.log_analytics_workspace_retention_in_days))
+    error_message = "Invalid value for log_analytics_workspace_retention_in_days. Valid values are 30, 60, 90, 120, 180, 270, 365, 550, 730."
+  }
 }
