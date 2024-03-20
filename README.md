@@ -51,5 +51,4 @@ No modules.
 | <a name="output_azurerm_log_analytics_workspace_id"></a> [azurerm\_log\_analytics\_workspace\_id](#output\_azurerm\_log\_analytics\_workspace\_id) | The Log Analytics Workspace ID. |
 | <a name="output_azurerm_log_analytics_workspace_primary_shared_key"></a> [azurerm\_log\_analytics\_workspace\_primary\_shared\_key](#output\_azurerm\_log\_analytics\_workspace\_primary\_shared\_key) | The Primary shared key for the Log Analytics Workspace. |
 | <a name="output_azurerm_log_analytics_workspace_secondary_shared_key"></a> [azurerm\_log\_analytics\_workspace\_secondary\_shared\_key](#output\_azurerm\_log\_analytics\_workspace\_secondary\_shared\_key) | The Secondary shared key for the Log Analytics Workspace. |
-| <a name="output_azurerm_log_analytics_workspace_workspace_id"></a> [azurerm\_log\_analytics\_workspace\_workspace\_id](#output\_azurerm\_log\_analytics\_workspace\_workspace\_id) | The Workspace (or Customer) ID for the Log Analytics Workspace. |
 <!-- END_TF_DOCS -->
