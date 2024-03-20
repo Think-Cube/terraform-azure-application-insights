@@ -39,9 +39,3 @@ output "azurerm_log_analytics_workspace_secondary_shared_key" {
   value = azurerm_log_analytics_workspace.main.secondary_shared_key
   sensitive = true
 }
-
-output "azurerm_log_analytics_workspace_workspace_id" {
-  description = "The Workspace (or Customer) ID for the Log Analytics Workspace."
-  value = azurerm_log_analytics_workspace.main.workspace_id
-  sensitive = false
-}
