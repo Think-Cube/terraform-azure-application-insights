@@ -1,0 +1,80 @@
+name: $(MODULE_NAME)-$(date:yyyyMMdd)-$(rev:.r)
+trigger: none
+pr:
+  branches:
+    include:
+      - refs/heads/master
+      - refs/heads/main
+resources:
+  repositories:
+    - repository: self
+variables:
+  - name: TERRAFORM_SEC_VERSION
+    value: "v1.26.0"
+  - name: GITHUB_REPO
+    value: "Think-Cube/terraform-azure-application-insights"
+  - group: GITHUB-PAT-TOKEN
+  - name: VM_IMAGE
+    value: ubuntu-latest
+  - name: MODULE_NAME
+    value: "terraform-azure-application-insights"    
+pool:
+  vmImage: $(VM_IMAGE)
+stages:
+  - stage: Validate_Terraform_Module
+    displayName: 'Validate Terraform Module'
+    jobs:
+      - job: Validate_Terraform_Module
+        displayName: 'Validate Terraform Module'
+        steps:
+        - checkout: self
+          displayName: 'Checkout Module'
+          fetchDepth: 1
+        - task: TerraformCLI@0
+          displayName: 'Terraform Init'
+          inputs:
+            command: 'init'
+            allowTelemetryCollection: false
+        - task: TerraformCLI@0
+          displayName: 'Terraform Validate'
+          inputs:
+            command: 'validate'
+            allowTelemetryCollection: false
+        - task: tfsec@1
+          displayName: 'Terraform SEC check'
+          inputs:
+            version: '$(TERRAFORM_SEC_VERSION)'
+            dir: '$(System.DefaultWorkingDirectory)'
+        - script: |
+            cd /tmp
+            curl -sSLo /tmp/terraform-docs.tar.gz https://terraform-docs.io/dl/v0.19.0/terraform-docs-v0.19.0-$(uname)-amd64.tar.gz
+            tar -xzf /tmp/terraform-docs.tar.gz
+            chmod +x /tmp/terraform-docs
+          displayName: 'Download terraform-docs' 
+        - script: |
+            # Variables
+            github_token="$(GITHUB_TOKEN)" 
+            # Generate or update README.md
+            /tmp/terraform-docs markdown table . > README.md
+
+            # Check if README.md has been updated or created and add to PR
+            if [ -f README.md ]; then
+              echo "README.md file generated/updated."
+              git config --global user.email "devops-bot@example.com"
+              git config --global user.name "DevOps Bot"
+              git add README.md
+              git commit -m "Update README.md with module documentation"
+              
+              # Set remote URL with authentication token
+              git remote set-url origin https://$(GITHUB_TOKEN)@github.com/Think-Cube/terraform-azure-application-insights.git
+
+              # Pull the latest changes to avoid conflicts (source branch of the PR)
+              git pull origin $(System.PullRequest.SourceBranch) --rebase
+
+              # Push changes
+              git push origin HEAD:$(System.PullRequest.SourceBranch)
+            else
+              echo "Failed to generate README.md"
+              exit 1
+            fi
+          displayName: 'Generate and Update README.md Documentation'
