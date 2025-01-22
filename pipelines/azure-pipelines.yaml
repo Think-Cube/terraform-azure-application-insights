@@ -41,77 +41,49 @@ stages:
         - checkout: self
           displayName: 'Checkout Module'
           fetchDepth: 1
-        - task: CmdLine@2
+        - task: TerraformCLI@0
           displayName: 'Terraform Init'
           inputs:
-            script: |
-              terraform init
-            workingDirectory: '$(System.DefaultWorkingDirectory)'
-        - task: CmdLine@2
+            command: 'init'
+            allowTelemetryCollection: false
+        - task: TerraformCLI@0
           displayName: 'Terraform Validate'
           inputs:
-            script: |
-              terraform validate
-            workingDirectory: '$(System.DefaultWorkingDirectory)'
+            command: 'validate'
+            allowTelemetryCollection: false
         - task: tfsec@1
           displayName: 'Terraform SEC check'
           inputs:
             version: '$(TERRAFORM_SEC_VERSION)'
             dir: '$(System.DefaultWorkingDirectory)'
-  - stage: Publish_Terraform_Module
-    condition: eq('${{parameters.publish_module}}', 'true')  
-    displayName: 'Publish Terraform Module'
-    jobs:
-      - job: Publish_Terraform_Module
-        displayName: 'Publish Terraform Module'
-        steps:
-        - checkout: self
-        - task: CopyFiles@2
-          displayName: 'Copy Terraform module files'
-          inputs:
-            SourceFolder: $(System.DefaultWorkingDirectory)
-            Contents: '**.tf'
-            TargetFolder: $(System.DefaultWorkingDirectory)/$(MODULE_NAME)        
-        - task: CmdLine@2
-          displayName: 'Fetch latest version and increment'
-          inputs:
-            script: |
-              # Variables
-              module_path="$(System.DefaultWorkingDirectory)/$(MODULE_NAME)"
-              github_repo="$(GITHUB_REPO)"
-              github_token="$(GITHUB_TOKEN)"
-              description="New $(MODULE_DESCRIPTION) release"
+        - script: |
+            cd /tmp
+            curl -sSLo /tmp/terraform-docs.tar.gz https://terraform-docs.io/dl/v0.19.0/terraform-docs-v0.19.0-$(uname)-amd64.tar.gz
+            tar -xzf /tmp/terraform-docs.tar.gz
+            chmod +x /tmp/terraform-docs
+          displayName: 'Download terraform-docs' 
+        - script: |
+            # Generate or update README.md
+            /tmp/terraform-docs markdown table . > README.md
 
-              # Remove unnecessary files from the module directory
-              find "$module_path" -name ".git" -type d -exec rm -rf {} +
-              find "$module_path" -name ".github" -type d -exec rm -rf {} +
+            # Check if README.md has been updated or created and add to PR
+            if [ -f README.md ]; then
+              echo "README.md file generated/updated."
+              git config --global user.email "devops-bot@thinkcube.dev"
 
-              # Fetch the latest tag and increment version
-              latest_tag=$(git tag --list "v*" | sort -V | tail -n1)
-              new_version="0.0.1"
-              if [ -n "$latest_tag" ]; then
-                IFS='.' read -r major minor patch <<< "${latest_tag#v}"
-                if (( patch < 999 )); then
-                  patch=$((patch + 1))
-                else
-                  patch=0
-                  if (( minor < 999 )); then
-                    minor=$((minor + 1))
-                  else
-                    minor=0
-                    major=$((major + 1))
-                  fi
-                fi
-                new_version="$major.$minor.$patch"
-              fi
+              git config --global user.name "DevOps Bot"
+              git add README.md
+              git commit -m "Update README.md with module documentation"
 
-              # Create a tarball of the module
-              tarball_name="$(MODULE_NAME)-v$new_version.tar.gz"
-              tar -czf "$tarball_name" -C "$module_path" .
+              # Set remote URL with authentication token
+              git remote set-url origin https://$(GITHUB_TOKEN)@github.com/$(GITHUB_REPO).git
 
-              # Publish to GitHub Releases using gh CLI
-              echo "$github_token" | gh auth login --with-token
-              gh release create "v$new_version" "$tarball_name" \
-                --repo "$github_repo" \
-                --title "$(MODULE_NAME) v$new_version" \
-                --notes "$description"
+              # Pull the latest changes to avoid conflicts (source branch of the PR)
+              git pull origin '$(System.PullRequest.SourceBranch)' --rebase || exit 1
+
+              # Push changes
+              git push origin HEAD:'$(System.PullRequest.SourceBranch)' || exit 1
+            else
+              echo "No changes in README.md detected."
+            fi
+          displayName: 'Generate and Update README.md Documentation'
