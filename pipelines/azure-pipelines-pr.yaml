@@ -52,29 +52,27 @@ stages:
             chmod +x /tmp/terraform-docs
           displayName: 'Download terraform-docs' 
         - script: |
-            # Variables
-            github_token="$(GITHUB_TOKEN)" 
             # Generate or update README.md
             /tmp/terraform-docs markdown table . > README.md
 
             # Check if README.md has been updated or created and add to PR
             if [ -f README.md ]; then
               echo "README.md file generated/updated."
-              git config --global user.email "devops-bot@example.com"
+              git config --global user.email "devops-bot@thinkcube.dev"
+
               git config --global user.name "DevOps Bot"
               git add README.md
               git commit -m "Update README.md with module documentation"
-              
+
               # Set remote URL with authentication token
-              git remote set-url origin https://$(GITHUB_TOKEN)@github.com/Think-Cube/terraform-azure-application-insights.git
+              git remote set-url origin https://$(GITHUB_TOKEN)@github.com/$(GITHUB_REPO).git
 
               # Pull the latest changes to avoid conflicts (source branch of the PR)
-              git pull origin $(System.PullRequest.SourceBranch) --rebase
+              git pull origin '$(System.PullRequest.SourceBranch)' --rebase || exit 1
 
               # Push changes
-              git push origin HEAD:$(System.PullRequest.SourceBranch)
+              git push origin HEAD:'$(System.PullRequest.SourceBranch)' || exit 1
             else
-              echo "Failed to generate README.md"
-              exit 1
+              echo "No changes in README.md detected."
             fi
           displayName: 'Generate and Update README.md Documentation'
