@@ -1,75 +1,67 @@
-###########################
-# Common vars
-###########################
 variable "environment" {
-  description = "Variable that defines the name of the environment."
+  description = "Variable used for backend container name key, typically used to distinguish between different environments such as dev, prod, etc."
   type        = string
   default     = "dev"
 }
+
 variable "default_tags" {
-  description = "A mapping of tags to assign to the resource."
+  description = "A mapping of tags to assign to the resource. These tags can help categorize and organize the resource within Azure."
   type        = map(any)
-  default = {
-    "ManagedByTerraform" = "True"
-  }
 }
+
 variable "region" {
-  description = "Region in which resources are deployed."
+  description = "The Azure region in which resources will be deployed, for example, 'weu' (West Europe)."
   type        = string
   default     = "weu"
 }
-###########################
-# Resource groups vars
-###########################
+
 variable "resource_group_location" {
-  description = "Specifies the supported Azure location where the resource exists. Changing this forces a new resource to be created."
-  default     = "West Europe"
+  description = "The location/region where the Application Insights is created. Changing this forces a new resource to be created."
   type        = string
+  default     = "West Europe"
 }
+
 variable "resource_group_name" {
-  description = "TThe name of the resource group in which to create the Application Insights component. Changing this forces a new resource to be created."
+  description = "The name of the resource group in which to create the virtual network. This is an important organizational construct in Azure."
   type        = string
 }
 
-###########################
-# Application Insights Service vars
-###########################
 variable "application_insights_name" {
-  description = "Specifies the name of the Application Insights component. Changing this forces a new resource to be created."
+  description = "The name of the Application Insights resource. Changing this forces a new resource to be created."
   type        = string
 }
+
 variable "application_insights_type" {
-  description = "Specifies the type of Application Insights to create. Valid values are ios for iOS, java for Java web, MobileCenter for App Center, nodejs for Node.js, and other for General."
+  description = "The type of Application Insights to create. Valid values are ios, java, MobileCenter, Node.JS, other, phone, store, and web (for ASP.NET). Changing this forces a new resource to be created."
   type        = string
   default     = "web"
-
-  validation {
-    condition     = can(regex("^(ios|java|MobileCenter|Node.JS|other|phone|store|web)$", var.application_insights_type))
-    error_message = "Invalid value for application_insights_type. Valid values are ios, java, MobileCenter, nodejs, or other."
-  }
 }
+
 variable "log_analytics_workspace_name" {
-  description = "Specifies the name of the Log Analytics Workspace. Workspace name should include 4-63 letters, digits or '-'. The '-' shouldn't be the first or the last symbol. Changing this forces a new resource to be created"
+  description = "The name of the Log Analytics Workspace. The name should be between 4 and 63 characters, consisting of letters, digits, and hyphens. Changing this forces a new resource to be created."
   type        = string
 }
+
 variable "log_analytics_workspace_sku" {
-  description = "Specifies the SKU of the Log Analytics Workspace. Possible values are Free, PerNode, Premium, Standard, Standalone, Unlimited, CapacityReservation, and PerGB2018 (new SKU as of 2018-04-03). Defaults to PerGB2018."
+  description = "The SKU for the Log Analytics Workspace. Options include Free, PerNode, Premium, Standard, Standalone, Unlimited, CapacityReservation, and PerGB2018. The default is PerGB2018."
   type        = string
   default     = "PerGB2018"
-
-  validation {
-    condition     = can(regex("^(Free|PerNode|Premium|Standard|Standalone|Unlimited|CapacityReservation|PerGB2018)$", var.log_analytics_workspace_sku))
-    error_message = "Invalid value for log_analytics_workspace_retention_in_days. Valid values are Free, PerNode, Premium, Standard, Standalone, Unlimited, CapacityReservation, PerGB2018."
-  }
 }
 
 variable "log_analytics_workspace_retention_in_days" {
-  description = "The workspace data retention in days. Possible values are either 7 (Free Tier only) or range between 30 and 730."
+  description = "The number of days to retain data in the Log Analytics Workspace. The Free tier supports only 7 days, while other tiers can range from 30 to 730 days."
   type        = number
-  default     = "30"
+  default     = 30
+}
 
-  validation {
-    condition     = can(regex("^(30|60|90|120|180|270|365|550|730)$", var.log_analytics_workspace_retention_in_days))
-    error_message = "Invalid value for log_analytics_workspace_retention_in_days. Valid values are 30, 60, 90, 120, 180, 270, 365, 550, 730."
-  }
+variable "log_analytics_workspace_daily_quota_gb" {
+  description = "The daily data ingestion quota in GB for the Log Analytics Workspace. If omitted, the default value is -1 (unlimited)."
+  type        = number
+  default     = -1
+}
+
+variable "application_insights_daily_data_cap_in_gb" {
+  description = "The daily data volume cap in GB for the Application Insights component. The default is 100 GB."
+  type        = number
+  default     = 100
 }
