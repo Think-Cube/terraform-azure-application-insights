@@ -30,6 +30,10 @@ stages:
         - checkout: self
           displayName: 'Checkout Module'
           fetchDepth: 1
+        - task: TerraformInstaller@2
+          displayName: 'Terraform Install'
+          inputs:
+            terraformVersion: 'latest'
         - task: TerraformCLI@0
           displayName: 'Terraform Init'
           inputs:
