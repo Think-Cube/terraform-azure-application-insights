@@ -6,6 +6,4 @@ resource "azurerm_application_insights" "main" {
   workspace_id         = var.log_analytics_workspace_id != null ? var.log_analytics_workspace_id : azurerm_log_analytics_workspace.main[0].id
   tags                 = var.default_tags
   daily_data_cap_in_gb = var.application_insights_daily_data_cap_in_gb
-
-  depends_on = var.log_analytics_workspace_id == null ? [azurerm_log_analytics_workspace.main] : []
 }
