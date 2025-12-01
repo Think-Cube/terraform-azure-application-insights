@@ -65,3 +65,9 @@ variable "application_insights_daily_data_cap_in_gb" {
   type        = number
   default     = 100
 }
+
+variable "log_analytics_workspace_id" {
+  description = "ID of an existing Log Analytics Workspace. If provided, the module will not create a new workspace."
+  type        = string
+  default     = null
+}
