@@ -1,14 +1,12 @@
 module "application_insights" {
   source = "github.com/Think-Cube/terraform-azure-application-insights?ref=v1.0.0"
 
-  name                = "my-appinsights"
-  resource_group_name = "my-rg"
+  name                = "appi-dev-example"
+  resource_group_name = "rg-example"
   location            = "West Europe"
   application_type    = "web"
 
-  retention_in_days   = 90
-  sampling_percentage = 100
-  workspace_id        = "/subscriptions/00000000/resourceGroups/my-rg/providers/Microsoft.OperationalInsights/workspaces/my-law"
+  log_analytics_workspace_name = "law-dev-example"
 
   tags = {
     environment = "dev"

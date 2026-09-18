@@ -1,20 +1,30 @@
-# Example: Basic
+# Example: Advanced
 
-Minimal working example for `terraform-azure-application-insights`.
+Full-featured example for `terraform-azure-application-insights`.
 
 ```hcl
 module "application_insights" {
   source = "github.com/Think-Cube/terraform-azure-application-insights?ref=v1.0.0"
 
-  name                = "appi-dev-example"
+  name                = "appi-prod-example"
   resource_group_name = "rg-example"
   location            = "West Europe"
   application_type    = "web"
 
-  log_analytics_workspace_name = "law-dev-example"
+  # Attach to existing Log Analytics Workspace
+  workspace_id = "/subscriptions/00000000-0000-0000-0000-000000000000/resourceGroups/rg-example/providers/Microsoft.OperationalInsights/workspaces/law-prod-example"
+
+  retention_in_days                     = 90
+  daily_data_cap_in_gb                  = 5
+  daily_data_cap_notifications_disabled = false
+  sampling_percentage                   = 50
+  disable_ip_masking                    = false
+  local_authentication_disabled         = true
+  internet_ingestion_enabled            = false
+  internet_query_enabled                = false
 
   tags = {
-    environment = "dev"
+    environment = "prod"
     managed_by  = "terraform"
   }
 }```` 
