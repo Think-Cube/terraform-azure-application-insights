@@ -1,5 +1,5 @@
 module "application_insights" {
-  source = "github.com/Think-Cube/terraform-azure-application-insights?ref=v1.0.0"
+  source = "../.."
 
   name                = "appi-dev-example"
   resource_group_name = "rg-example"
