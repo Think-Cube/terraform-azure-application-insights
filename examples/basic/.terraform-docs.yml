@@ -1,0 +1,12 @@
+﻿formatter: markdown table
+
+header-from: header.md
+
+settings:
+  hide-empty: true
+  anchor: true
+  html: false
+
+output:
+  file: README.md
+  mode: replace

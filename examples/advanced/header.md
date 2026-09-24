@@ -1,4 +1,3 @@
-<!-- BEGIN_TF_DOCS -->
 # Example: Advanced — Azure Application Insights
 
 Provisions an Azure Application Insights workspace for application monitoring. Full-featured example with optional configuration blocks enabled.
@@ -32,17 +31,3 @@ module "application_insights" {
   }
 }
 ```
-
-## Requirements
-
-| Name | Version |
-|------|---------|
-| <a name="requirement_terraform"></a> [terraform](#requirement\_terraform) | >= 1.9.0 |
-| <a name="requirement_azurerm"></a> [azurerm](#requirement\_azurerm) | ~> 5.0 |
-
-## Modules
-
-| Name | Source | Version |
-|------|--------|---------|
-| <a name="module_application_insights"></a> [application\_insights](#module\_application\_insights) | ../.. | n/a |
-<!-- END_TF_DOCS -->
